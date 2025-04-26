@@ -1,6 +1,7 @@
 package BinaryTree;
 
 import java.util.ArrayDeque;
+import java.util.ArrayList;
 import java.util.Queue;
 import java.util.Stack;
 
@@ -110,6 +111,29 @@ public class binaryTree {
         }
     }
 
+    static ArrayList<Integer> path;
+
+    public static boolean findNode(Node node, int data) {
+        if (node == null) {
+            return false;
+        }
+        if (node.data == data) {
+            path.add(node.data);
+            return true;
+        }
+        boolean lc = findNode(node.left, data);
+        if (lc) {
+            path.add(node.data);
+            return true;
+        }
+        boolean rc = findNode(node.right, data);
+        if (rc) {
+            path.add(node.data);
+            return true;
+        }
+        return false;
+    }
+
 
     public static void main(String[] args) {
         Integer[] arr = {50, 25, 12, null, null, 37, 30, null, null, null, 75, 62, null, 70, null, null, 87, null, null};
@@ -156,6 +180,10 @@ public class binaryTree {
         System.out.println("Height of nodes - " + heightOfNode(root));
         traversalOfNode(root);
         levelOrderTraversal(root);
+        path = new ArrayList<>();
+        findNode(root, 30);
+        System.out.println("Path of data-" + path);
+
 
     }
 
