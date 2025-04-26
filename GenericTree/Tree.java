@@ -182,6 +182,10 @@ public class Tree {
         return true;
     }
 
+    public static boolean isGenericTreeSymmetric(Node node) {
+        return areMirror(node, node);
+    }
+
 
     public static void main(String[] args) {
         int[] arr = {10, 20, -1, 30, 50, -1, 60, -1, -1, 40, -1, -1};
