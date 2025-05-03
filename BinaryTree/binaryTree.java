@@ -134,6 +134,58 @@ public class binaryTree {
         return false;
     }
 
+    public static void printKLevelDown(Node node, int k) {
+        if (node == null || k < 0) {
+            return;
+        }
+        if (k == 0) {
+            System.out.println(node.data);
+        }
+        printKLevelDown(node.left, k - 1);
+        printKLevelDown(node.right, k - 1);
+    }
+
+    public static void pathToLeafFromRoot(Node node, String path, int sum, int low, int high) {
+        if (node == null) {
+            return;
+        }
+        if (node.left == null && node.right == null) {
+            sum += node.data;
+            if (sum >= low && sum <= high) {
+                System.out.println(path + node.data + "");
+            }
+            return;
+        }
+        pathToLeafFromRoot(node.left, path + node.data + "", sum + node.data, low, high);
+        pathToLeafFromRoot(node.right, path + node.data + "", sum + node.data, low, high);
+    }
+
+    public static Node createLeftCloneTree(Node node) {
+        if (node == null) {
+            return null;
+        }
+        Node lcr = createLeftCloneTree(node.left);
+        Node rcr = createLeftCloneTree(node.right);
+
+        Node nn = new Node(node.data, lcr, null);
+        node.left = nn;
+        node.right = rcr;
+        return node;
+
+    }
+
+    public static Node transBackLeftClonedTree(Node node) {
+        if (node == null) {
+            return null;
+        }
+        Node lnn = transBackLeftClonedTree(node.left.left);
+        Node rnn = transBackLeftClonedTree(node.right);
+
+        node.left = lnn;
+        node.right = rnn;
+
+        return node;
+    }
 
     public static void main(String[] args) {
         Integer[] arr = {50, 25, 12, null, null, 37, 30, null, null, null, 75, 62, null, 70, null, null, 87, null, null};
@@ -183,6 +235,9 @@ public class binaryTree {
         path = new ArrayList<>();
         findNode(root, 30);
         System.out.println("Path of data-" + path);
+        printKLevelDown(root, 2);
+        createLeftCloneTree(root);
+        displayBinary(root);
 
 
     }
