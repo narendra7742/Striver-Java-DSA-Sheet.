@@ -174,6 +174,19 @@ public class binaryTree {
 
     }
 
+    // Diameter of Binary tree
+    public static int diameter1(Node node) {
+        if (node == null) {
+            return 0;
+        }
+        int ld = diameter1(node.left);
+        int rd = diameter1(node.right);
+
+        int f = heightOfNode(node.left) + heightOfNode(node.right) + 2;
+
+        return Math.max(f, Math.max(ld, rd));
+    }
+
     public static Node transBackLeftClonedTree(Node node) {
         if (node == null) {
             return null;
@@ -230,6 +243,7 @@ public class binaryTree {
         System.out.println("Sum of nodes - " + sum(root));
         System.out.println("Max of nodes - " + maxNode(root));
         System.out.println("Height of nodes - " + heightOfNode(root));
+        System.out.println("Diameter of Node - " + diameter1(root));
         traversalOfNode(root);
         levelOrderTraversal(root);
         path = new ArrayList<>();
